@@ -6,6 +6,8 @@ import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
 import os
+import requests
+from io import BytesIO
 
 # Base URL for the raw files from your GitHub repository
 base_url = 'https://github.com/Samnetis/ppp4/raw/master/machine%20learning/'
