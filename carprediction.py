@@ -7,24 +7,28 @@ import matplotlib.pyplot as plt
 import seaborn as sns
 import os
 
-# Define file paths
-# Base path where all the files are located (relative to the script location)
-data_folder = os.path.join(os.getcwd(), 'machine learning')
+# Base URL for the raw files from your GitHub repository
+base_url = 'https://github.com/Samnetis/ppp4/raw/master/machine%20learning/'
 
-# Construct relative paths to each file
-model_path = os.path.join(data_folder, r'C:\Users\wealt\Documents\machine learning\Car_price_prediction_bagging_model.pkl')
-label_encoders_path = os.path.join(data_folder, r'C:\Users\wealt\Documents\machine learning\Label_encoders.pkl')
-scalers_path = os.path.join(data_folder, r'C:\Users\wealt\Documents\machine learning\Scalers.pkl')
-csv_data_path = os.path.join(data_folder, r'C:\Users\wealt\Documents\machine learning\Car_dekho_cleaned_dataset.csv')
-image_directory = os.path.join(data_folder, r'C:\Users\wealt\Documents\machine learning\Car_Models')
+# File paths on GitHub
+model_url = base_url + 'Car_price_prediction_bagging_model.pkl'
+label_encoders_url = base_url + 'Label_encoders.pkl'
+scalers_url = base_url + 'Scalers.pkl'
+data_url = base_url + 'Car_dekho_cleaned_dataset.csv'
+image_directory = base_url + 'Car_Models/'
 
-# Load the files using the relative paths
-model = joblib.load(model_path)
-label_encoders = joblib.load(label_encoders_path)
-scalers = joblib.load(scalers_path)
+# Function to load pickle files from GitHub URL
+def load_pickle_from_url(url):
+    response = requests.get(url)
+    return joblib.load(BytesIO(response.content))
 
-# Load the dataset using the relative path
-data = pd.read_csv(csv_data_path, low_memory=False)
+# Load files from GitHub
+model = load_pickle_from_url(model_url)
+label_encoders = load_pickle_from_url(label_encoders_url)
+scalers = load_pickle_from_url(scalers_url)
+
+# Load dataset from GitHub (CSV)
+data = pd.read_csv(data_url, low_memory=False)
 
 # Set pandas option to handle future downcasting behavior
 pd.set_option('future.no_silent_downcasting', True)
