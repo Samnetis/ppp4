@@ -52,6 +52,12 @@ data = pd.read_csv(data_url, low_memory=False)
 # Set pandas option to handle future downcasting behavior
 pd.set_option('future.no_silent_downcasting', True)
 
+if '10' in data.columns:
+    # Safe to access the column
+    value = data['10']
+else:
+    print("Column '10' does not exist")
+
 #model_path = r'C:\Users\wealt\Documents\machine learning\Car_price_prediction_bagging_model.pkl'
 #label_encoders_path = r'C:\Users\wealt\Documents\machine learning\Label_encoders.pkl'
 #scalers_path = r'C:\Users\wealt\Documents\machine learning\Scalers.pkl'
