@@ -8,7 +8,6 @@ import seaborn as sns
 import os
 import requests
 from io import BytesIO
-import pickle
 
 # Base URL for the raw files from your GitHub repository
 
@@ -20,11 +19,6 @@ label_encoders_url = base_url + 'Label_encoders.pkl'
 scalers_url = base_url + 'Scalers.pkl'
 data_url = base_url + 'Car_dekho_cleaned_dataset.csv'
 image_directory = base_url + 'Car_Models/'
-
-# Function to load pickle files from GitHub URL
-def load_pickle_from_url(url):
-    response = requests.get(url)
-    return joblib.load(BytesIO(response.content))
 
 # Load files from GitHub
 model = load_pickle_from_url(model_url)
