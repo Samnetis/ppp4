@@ -8,6 +8,7 @@ import seaborn as sns
 import os
 import requests
 from io import BytesIO
+import pickle
 
 logging.basicConfig(level=logging.INFO)
 
