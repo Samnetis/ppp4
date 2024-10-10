@@ -9,7 +9,24 @@ import os
 import requests
 from io import BytesIO
 
+logging.basicConfig(level=logging.INFO)
+
+def load_pickle_from_url(url):
+    logging.info(f"Downloading file from {url}")
+    response = requests.get(url)
+    if response.status_code == 200:
+        logging.info(f"File size: {len(response.content)} bytes")
+        try:
+            return joblib.load(BytesIO(response.content))
+        except Exception as e:
+            logging.error(f"Error loading pickle file: {e}")
+            return None
+    else:
+        logging.error(f"Failed to download file from {url}, Status code: {response.status_code}")
+        return None
+
 # Base URL for the raw files from your GitHub repository
+
 base_url = 'https://github.com/Samnetis/ppp4/raw/master/machine%20learning/'
 
 # File paths on GitHub
